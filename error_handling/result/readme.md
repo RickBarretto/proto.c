@@ -48,7 +48,7 @@ result get_element_from(const array *data, const size_t index)
     if (0 > index)           return err(OUT_OF_INDEX);
     if (index >= data->size) return err(OUT_OF_INDEX);
 
-    return ok(array.content[index]);
+    return ok(data->content[index]);
 
 }
 
