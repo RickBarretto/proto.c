@@ -7,7 +7,7 @@
  * Compile with: `gcc test.c -o test.exe`
  * And then run: `./test`
  *
-*/
+ */
 
 #include <stdio.h>
 #include <string.h>
@@ -15,16 +15,14 @@
 
 #include "optional.h"
 
-
 optional return_some_int()
 {
-	return some((void*)10);
+	return some((void *)10);
 }
-
 
 optional return_some_string()
 {
-	return some((void*)"Hello, world!");
+	return some((void *)"Hello, world!");
 }
 
 optional return_none()
@@ -32,14 +30,13 @@ optional return_none()
 	return none();
 }
 
-def_optional(optional_string, char*);
+def_optional(optional_string, char *);
 
 optional_string return_pseudo_generic()
 {
 	optional_string res = cast_optional(some("Hello, world! :)"));
 	return res;
 }
-
 
 int main(void)
 {
@@ -59,7 +56,7 @@ int main(void)
 	optional my_string = return_some_string();
 	printf("%s\n", my_string.value);
 
-	assert(0 == strcmp("Hello, world!" , my_string.value));
+	assert(0 == strcmp("Hello, world!", my_string.value));
 	assert(true == my_string.has_some);
 
 	/* **** **** **** **** **** **** **** */
@@ -83,7 +80,8 @@ int main(void)
 
 	/* **** **** **** **** **** **** **** */
 
-	struct string_result {
+	struct string_result
+	{
 		char *value;
 		bool has_some;
 	};
@@ -91,13 +89,12 @@ int main(void)
 	optional temp = return_some_string();
 	struct string_result s;
 
-	s.value = (char*) temp.value;
+	s.value = (char *)temp.value;
 	s.has_some = temp.has_some;
 
 	printf("{\n\tvalue: %s,\n\thas_some: %s\n}\n",
-			 s.value,
-			 s.has_some ? "true" : "false");
+	       s.value,
+	       s.has_some ? "true" : "false");
 
 	return 0;
-
 }

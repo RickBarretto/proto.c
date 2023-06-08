@@ -65,8 +65,8 @@
  */
 typedef struct optional
 {
-    void *value;
-    bool has_some;
+	void *value;
+	bool has_some;
 } optional;
 
 /** ## def_optional
@@ -96,11 +96,11 @@ typedef struct optional
  *      }
  */
 #define def_optional(name, type) \
-    typedef struct name          \
-    {                            \
-        type value;              \
-        bool has_some;           \
-    } name
+	typedef struct name      \
+	{                        \
+		type value;      \
+		bool has_some;   \
+	} name
 
 /** ## some
  *
@@ -116,10 +116,10 @@ typedef struct optional
  *      }
  *
  */
-optional some(void* value)
+optional some(void *value)
 {
-    optional res = { .value = value, .has_some = true };
-    return res;
+	optional res = {.value = value, .has_some = true};
+	return res;
 }
 
 /** ## none
@@ -138,8 +138,8 @@ optional some(void* value)
  */
 optional none(void)
 {
-    optional res = { .value = NULL, .has_some = false };
-    return res;
+	optional res = {.value = NULL, .has_some = false};
+	return res;
 }
 
 /** ## cast_optional
@@ -156,17 +156,18 @@ optional none(void)
  *
  *      def_optional(optional_string, char*);
  *
- *      optional_string fun(void){
+ *  	optional_string fun(void){
  *          // note: `some` returns optional<value: "Hello, world!", has_some: true>
  *          optional_string res = cast_optional(some("Hello, world!"));
  *          return res;
  *      }
  *
  */
-#define cast_optional(optional)                                \
-    {                                                          \
-        .value = optional.value, .has_some = optional.has_some \
-    }
+#define cast_optional(optional)               \
+	{                                     \
+		.value = optional.value,      \
+		.has_some = optional.has_some \
+	}
 
 #endif /* LIB_OPTIONAL_H */
 
