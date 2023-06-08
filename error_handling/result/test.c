@@ -47,8 +47,8 @@ int main(void)
 	assert(10 == my_int.unwrap);
 
 	printf("%d * 2 is = %d\n",
-			 my_int.unwrap,
-			 (int)my_int.unwrap * 2);
+	       my_int.unwrap,
+	       (int)my_int.unwrap * 2);
 
 	/* **** **** **** **** **** **** **** */
 
@@ -90,8 +90,8 @@ int main(void)
 	s.error = temp.error;
 
 	printf("{\n\tunwrap: %s,\n\terror: %d\n}\n",
-			 s.unwrap,
-			 s.error);
+	       s.unwrap,
+	       s.error);
 
 	return 0;
 }

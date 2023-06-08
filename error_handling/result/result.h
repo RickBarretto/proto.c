@@ -96,10 +96,10 @@ typedef struct result
  *
  */
 #define def_result(name, type) \
-	typedef struct name         \
-	{                           \
-		type unwrap;             \
-		uint8_t error;           \
+	typedef struct name    \
+	{                      \
+		type unwrap;   \
+		uint8_t error; \
 	} name
 
 /** ## ok
@@ -164,9 +164,10 @@ result err(uint8_t error_code)
  *  	}
  *
  */
-#define cast_result(result)                          \
-	{                                                 \
-		.unwrap = result.unwrap, .error = result.error \
+#define cast_result(result)              \
+	{                                \
+		.unwrap = result.unwrap, \
+		.error = result.error    \
 	}
 
 #endif /* LIB_RESULT_H */
