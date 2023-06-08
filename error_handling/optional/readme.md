@@ -23,10 +23,10 @@ such as Python, Rust and Swift.
 An example of usage: imagine you have an array and you want to
 search for a generic element. 
 This element may or not may exist, 
-and also, sometimes this element may be a NULL,
+and also, sometimes this element may be a `NULL`,
 and it is considered a valid value.
 
-In this case, you can't return NULL when not found, instead of that,
+In this case, you can't return `NULL` when not found, instead of that,
 you should return an Optional type.
 
 Let's see that in practice:
@@ -44,9 +44,9 @@ array my_array;
 
 optional look_for_element(const void *element)
 {
-    for (uint_fast64_t i = 0; i < my_array->size; i++)
+    for (size_t i = 0; i < my_array.size; i++)
     {
-        if (element == my_array[i])
+        if (element == my_array.contents[i])
             return some(i);
     }
 
