@@ -46,7 +46,7 @@ optional look_for_element(const void *element)
 {
     for (size_t i = 0; i < my_array.size; i++)
     {
-        if (element == my_array.contents[i])
+        if (element == my_array.content[i])
             return some(i);
     }
 
