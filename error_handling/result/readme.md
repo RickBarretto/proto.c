@@ -22,10 +22,10 @@ An example of usage: imagine you have an array and you want to
 get an element of this array.
 
 Your funcition must return the element at the same time it
-must return an error-code. 
+must return an error-code.
 
 Note that, in this case, you can't return `NULL` if something went wrong,
-because it can be a valid value. 
+because it can be a valid value.
 So, instead of that, you should return a Result type.
 
 Let's see that in practice:
@@ -71,10 +71,10 @@ if (2 == element.error) ...
 #### result
 
 `result` can be used as a type or struct, and stores two values,
-a `unwrap` that is the wrapped value itself, 
+a `unwrap` that is the wrapped value itself,
 and a `error` that is the error-code, if it's `0`, it's a success code by default.
 
-In this case, `unwrap` is stored as a void pointer, 
+In this case, `unwrap` is stored as a void pointer,
 used for generic programming in C. So you can store any type here,
 but it's not type-safe.
 
@@ -91,7 +91,7 @@ but it's not type-safe.
 
 #### def_result
 
-`def_result` is a macro used for create new pseudo-generic, 
+`def_result` is a macro used for create new pseudo-generic,
 but type-safe results.
 
 Basically it gets two arguments, `name` and `type`, and generates
@@ -104,7 +104,7 @@ typedef struct `name` {
 } `name`;
 ```
 
-You can use [`cast_result`](#cast_result) to translate generic-result 
+You can use [`cast_result`](#cast_result) to translate generic-result
 to your own pseudo-generic results.
 
 ##### Arguments
@@ -144,7 +144,7 @@ In this case, `unwrap`'ll be a `NULL`.
 It's a macro that converts a generic `result` to your own
 pseudo-generic results types.
 
-> **Note**: 
+> **Note**:
 > It can only be used as an r-value, and you always need to asign it to a variable.
 
 ##### Arguments
