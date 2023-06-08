@@ -58,7 +58,7 @@
  *  - `has_some`: `bool`
  *
  *  ### Usage
- * 
+ *
  *      optional fun(void){
  *          return some(10);
  *      }
@@ -79,18 +79,18 @@ typedef struct optional
  *  but with a fixed type instead of a `void*`, as it is for [[#optional]].
  *
  *  ### Usage
- * 
+ *
  *      #include <stdint.h>
- * 
+ *
  *      def_optional(optional_uint8, uint8_t);
- * 
+ *
  *      // expands to:
  *      // typedef struct optional_uint8
  *      // {
  *      //      uint8_t value;
  *      //      bool has_some;
  *      // } optional_uint8;
- *  
+ *
  *      optional_uint8 fun(void){
  *          return some(10);
  *      }
@@ -110,14 +110,14 @@ typedef struct optional
  *  returns an `optional` with some value
  *
  *  ### Usage
- * 
+ *
  *      optional fun(void){
- *          return some(10); // optional<value: 10, has_some: true> 
+ *          return some(10); // optional<value: 10, has_some: true>
  *      }
- * 
+ *
  */
-optional some(void* value)                      
-{                                    
+optional some(void* value)
+{
     optional res = { .value = value, .has_some = true };
     return res;
 }
@@ -130,11 +130,11 @@ optional some(void* value)
  *  none defined some optional-like struct as empty
  *
  *  ### Usage
- * 
+ *
  *      optional fun(void){
  *          return (optional) none(); // optional<value: NULL, has_some: false>
  *      }
- * 
+ *
  */
 optional none(void)
 {
@@ -154,8 +154,8 @@ optional none(void)
  *
  *  ### Usage
  *
- *      def_optional(optional_string, char*)
- * 
+ *      def_optional(optional_string, char*);
+ *
  *      optional_string fun(void){
  *          // note: `some` returns optional<value: "Hello, world!", has_some: true>
  *          optional_string res = cast_optional(some("Hello, world!"));
