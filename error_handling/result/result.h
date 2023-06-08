@@ -57,11 +57,10 @@
  *  - `error`: `uint_t`
  *
  *  ### Usage
- *  ```c
- *  result fun(void){
- *      return ok((void*)10);
- *  }
- *  ```
+ *
+ *  	result fun(void){
+ *      	return ok((void*)10);
+ *  	}
  */
 typedef struct result
 {
@@ -79,20 +78,22 @@ typedef struct result
  *  but with a fixed type instead of a `void*`, as it is for [[#result]].
  *
  *  ### Usage
- *  ```c
- *  #include <stdint.h>
- *  def_result(result_uint8, uint8_t);
- *  // expands to:
- *  // typedef struct result_uint8
- *  // {
- *  //      uint8_t unwrap;
- *  //      uint8_t error;
- *  // } result_uint8;
  *
- *  result_uint8 fun(void){
- *      return ok((void*)10);
- *  }
- *  ```
+ *  	#include <stdint.h>
+ *
+ *  	def_result(result_uint8, uint8_t);
+ *
+ *  	// expands to:
+ *  	// typedef struct result_uint8
+ *  	// {
+ *  	//      uint8_t unwrap;
+ *  	//      uint8_t error;
+ *  	// } result_uint8;
+ *
+ *  	result_uint8 fun(void){
+ *      	return ok((void*)10);
+ *  	}
+ *
  */
 #define def_result(name, type) \
 	typedef struct name         \
@@ -109,12 +110,11 @@ typedef struct result
  *  Returns an `result` with some value
  *
  *  ### Usage
- *  ```c
- *  result fun(void){
- *      return ok((void*)10);
- *      // `ok` returns: result<unwrap: 10, error: 0>
- *  }
- *  ```
+ *
+ * 		result fun(void){
+ *			return ok((void*)10); // `ok` returns: result<unwrap: 10, error: 0>
+ *  	}
+ *
  */
 result ok(void *value)
 {
@@ -130,13 +130,12 @@ result ok(void *value)
  *  Returns a `result` with an error code
  *
  *  ### Usage
- *  ```c
- *  result fun(void){
- *      #define ERROR 1
- *      return err(ERROR);
- *      // `err` returns: result<unwrap: NULL, error: 1>
- *  }
- *  ```
+ *
+ *  	result fun(void){
+ *      	#define ERROR 1
+ *      	return err(ERROR); // `err` returns: result<unwrap: NULL, error: 1>
+ *  	}
+ *
  */
 result err(uint8_t error_code)
 {
@@ -155,14 +154,15 @@ result err(uint8_t error_code)
  *  You can use it to convert generic `result`s to your own pseudo-generic one.
  *
  *  ### Usage
- *  ```c
- *  def_result(result_string, char*)
- *  result_string fun(void){
- *      result_string res = cast_result(ok((void*)"Hello, world!"));
- *      return res;
- *      // note: `ok` returns result<unwrap: "Hello, world!", error: 0>
- *  }
- *  ```
+ *
+ *  	def_result(result_string, char*);
+ *
+ *  	result_string fun(void){
+ *      	// note: `ok` returns result<unwrap: "Hello, world!", error: 0>
+ *      	result_string res = cast_result(ok((void*)"Hello, world!"));
+ *      	return res;
+ *  	}
+ *
  */
 #define cast_result(result)                          \
 	{                                                 \
