@@ -21,8 +21,8 @@ such as Python, Rust and Swift.
 ## Usage
 
 An example of usage: imagine you have an array and you want to
-search for a generic element. 
-This element may or not may exist, 
+search for a generic element.
+This element may or not may exist,
 and also, sometimes this element may be a `NULL`,
 and it is considered a valid value.
 
@@ -72,11 +72,11 @@ if (index_of.has_some) ...
 #### optional
 
 `optional` can be used as a type or struct, and stores two values,
-a `value` that is the wrapped value itself, 
+a `value` that is the wrapped value itself,
 and a `has_some` that defines if `value` should be or not be considered
 as existent.
 
-In this case, `value` is stored as a void pointer, 
+In this case, `value` is stored as a void pointer,
 used for generic programming in C. So you can store any type here,
 but it's not type-safe.
 
@@ -93,7 +93,7 @@ but it's not type-safe.
 
 #### def_optional
 
-`def_optional` is a macro used for create new pseudo-generic, 
+`def_optional` is a macro used for create new pseudo-generic,
 but type-safe optionals.
 
 Basically it gets two arguments, `name` and `type`, and generates
@@ -106,7 +106,7 @@ typedef struct `name` {
 } `name`;
 ```
 
-You can use [`cast_optional`](#cast_optional) to translate generic-optionals 
+You can use [`cast_optional`](#cast_optional) to translate generic-optionals
 to your own pseudo-generic optionals.
 
 ##### Arguments
@@ -146,7 +146,7 @@ Is a function that returns an generic `optional` with no value.
 It's a macro that converts a generic `optional` to your own
 pseudo-generic options types.
 
-> **Note**: 
+> **Note**:
 > It can only be used as an r-value, and you always need to asign it to a variable.
 
 ##### Arguments

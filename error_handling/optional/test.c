@@ -46,14 +46,14 @@ int main(void)
 
 	optional my_int = return_some_int();
 	printf("%d\n", my_int.value);
-	
+
 	assert(10 == my_int.value);
 	assert(true == my_int.has_some);
 
 	printf("%d * 2 is = %d\n",
 	       my_int.value,
 	       (int)my_int.value * 2);
-	
+
 	/* **** **** **** **** **** **** **** */
 
 	optional my_string = return_some_string();
@@ -75,7 +75,7 @@ int main(void)
 	optional empty = return_none();
 	if (empty.has_some)
 		printf("empty is an empty optional\n");
-	else 
+	else
 		printf("empty is not an empty optional\n");
 
 	assert(NULL == empty.value);
