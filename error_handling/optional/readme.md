@@ -81,14 +81,20 @@ used for generic programming in C. So you can store any type here,
 but it's not type-safe.
 
 ##### Fields
-- `value`: `*void`
-- `has_some`: `bool`
+- `*void value`: wraps the value itself
+- `bool has_some`: defines if the optional has some or none value
+
+##### See
+- [`some`](#some)
+- [`none`](#none)
+- [`def_optional`](#def_optional)
+- [`cast_optional`](#cast_optional)
 
 
 #### def_optional
 
 `def_optional` is a macro used for create new pseudo-generic, 
-but type-safe `optionals`.
+but type-safe optionals.
 
 Basically it gets two arguments, `name` and `type`, and generates
 an optional like this:
@@ -105,7 +111,11 @@ to your own pseudo-generic optionals.
 
 ##### Arguments
 1. `name`: the name of your new type/struct
-2. `type`: the `value`'s type 
+2. `type`: the `value`'s type
+
+##### See
+- [`optional`](#optional)
+- [`cast_optional`](#cast_optional)
 
 
 #### some
@@ -115,6 +125,10 @@ Is a function that returns an generic `optional` with some value.
 ##### Arguments
 1. `void* value`: can be any value
 
+##### See
+- [`optional`](#optional)
+- [`none`](#none)
+
 
 #### none
 
@@ -123,11 +137,17 @@ Is a function that returns an generic `optional` with no value.
 ##### Arguments
 1. `void`: it takes no argument
 
+##### See
+- [`optional`](#optional)
+- [`some`](#some)
 
 #### cast_optional
 
-Is a macro that converts a generic `optional` to your own
+It's a macro that converts a generic `optional` to your own
 pseudo-generic options types.
+
+> **Note**: 
+> It can only be used as an r-value, and you always need to asign it to a variable.
 
 ##### Arguments
 1. `optional`: the generic optional to be converted
@@ -142,6 +162,10 @@ casted = cast_optional(some("Hello!"));
 casted = cast_optional(none());
 casted = cast_optional(some_function());
 ```
+
+##### See
+- [`optional`](#optional)
+- [`def_optional`](#def_optional)
 
 ## Licenses
 
