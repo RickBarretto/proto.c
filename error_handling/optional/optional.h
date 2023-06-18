@@ -7,7 +7,7 @@
  *  file: optional.h
  *  license: MPL 2.0
  *  copyright: RickBarretto, 2023
- *  version: 1.0.0
+ *  version: 1.0.1
  *  ---
  *
  * <!-- read the footer for more information about copyright -->
