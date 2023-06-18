@@ -97,10 +97,10 @@ typedef struct optional
  *      }
  */
 #define def_optional(name, type) \
-	typedef struct name      \
-	{                        \
-		type value;      \
-		bool has_some;   \
+	typedef struct name           \
+	{                             \
+		type value;                \
+		bool has_some;             \
 	} name
 
 /** ## some
@@ -164,8 +164,8 @@ optional none(void)
  *      }
  *
  */
-#define cast_optional(optional)               \
-	{                                     \
+#define cast_optional(optional)     \
+	{                                \
 		.value = optional.value,      \
 		.has_some = optional.has_some \
 	}
