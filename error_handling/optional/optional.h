@@ -43,6 +43,7 @@
 #define LIB_OPTIONAL_H
 
 #include <stdbool.h>
+#include <stdlib.h>
 
 /** ## optional
  *
