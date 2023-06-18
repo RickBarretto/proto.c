@@ -37,6 +37,10 @@
  *  pseudo-generic generators can be a bit annoying to use sometimes,
  *  but it's definitelly type-safer than generics with `void*`.
  *
+ *  ## Exports
+ *  - "stdbool.h"
+ *  - "stdlib.h"
+ *
  */
 
 #ifndef LIB_OPTIONAL_H
