@@ -7,23 +7,23 @@
  *  file: optional.h
  *  license: MPL 2.0
  *  copyright: RickBarretto, 2023
- *  version: 1.0.1
+ *  version: 1.0.2
  *  ---
  *
  * <!-- read the footer for more information about copyright -->
  *
  *  ## Description
  *
- *  You may be asking right now, Why should I use an optional instead of a NULL?
- *  The answer is basically: In some ocasions you may consider NULL as a proper value,
+ *  You may be asking right now, Why should I use an optional instead of a `NULL`?
+ *  The answer is basically: In some ocasions you may consider `NULL` as a proper value,
  *  instead of a tool for error handling.
  *
  *  ## Objects
- *  - [[#optional|`optional`]]
- *  - [[#def_optional|`def_optional`]]
- *  - [[#some|`some`]]
- *  - [[#none|`none`]]
- *  - [[#cast_optional|`cast_optional`]]
+ *  - `optional`
+ *  - `def_optional`
+ *  - `some`
+ *  - `none`
+ *  - `cast_optional`
  *
  *  ## Design Choices
  *
@@ -38,8 +38,8 @@
  *  but it's definitelly type-safer than generics with `void*`.
  *
  *  ## Exports
- *  - "stdbool.h"
- *  - "stdlib.h"
+ *  - `stdbool.h`
+ *  - `stdlib.h`
  *
  */
 
@@ -58,54 +58,60 @@
  *  @`value` stores the wrapped value itself,
  *  while @`has_some` defines if the value exists or not.
  *
- *  ### Attributes
- *  - `value`: `void*`
- *  - `has_some`: `bool`
+ *  ### Fields
+ *  - `*void value`: wraps the value itself
+ *  - `bool has_some`: defines if the optional has some or none value
  *
  *  ### Usage
- *
- *      optional fun(void){
- *          return some(10);
- *      }
+ *  ```c
+ *  optional fun(void){
+ *  	return some(10);
+ *  }
+ *  ```
  */
 typedef struct optional
 {
-	void *value;
-	bool has_some;
+        void *value;
+        bool has_some;
 } optional;
 
 /** ## def_optional
  *
  *  > `def_optional(name, type)`
  *  > structure: `@name<@type value, bool has_some>`
- *  > type: struct, type
+ *  > type: macro, struct, type
  *
- *  Creates a pseudo-generic optional struct/type,
- *  but with a fixed type instead of a `void*`, as it is for [[#optional]].
+ *  A macro that creates a pseudo-generic optional struct/type,
+ *  but with a fixed type instead of a `void*`, as it is for [[#optional-1]].
+ *
+ *  ### Arguments
+ *  1. `name`: the name of your new type/struct
+ *  2. `type`: the `value`'s type
  *
  *  ### Usage
+ *  ```c
+ *  #include <stdint.h>
  *
- *      #include <stdint.h>
+ *  def_optional(optional_uint8, uint8_t);
  *
- *      def_optional(optional_uint8, uint8_t);
- *
- *      // expands to:
+ *  	// expands to:
  *      // typedef struct optional_uint8
  *      // {
  *      //      uint8_t value;
  *      //      bool has_some;
  *      // } optional_uint8;
  *
- *      optional_uint8 fun(void){
+ *   optional_uint8 fun(void){
  *          return some(10);
- *      }
+ *   }
+ *   ```
  */
 #define def_optional(name, type) \
-	typedef struct name           \
-	{                             \
-		type value;                \
-		bool has_some;             \
-	} name
+        typedef struct name      \
+        {                        \
+                type value;      \
+                bool has_some;   \
+        } name
 
 /** ## some
  *
@@ -114,17 +120,20 @@ typedef struct optional
  *
  *  returns an `optional` with some value
  *
+ *  ### Arguments
+ *  1. `void* value`: can be any value
+ *
  *  ### Usage
- *
- *      optional fun(void){
- *          return some(10); // optional<value: 10, has_some: true>
- *      }
- *
+ *  ```c
+ *  optional fun(void){
+ *  	return some(10); // optional<value: 10, has_some: true>
+ *  }
+ *  ```
  */
 optional some(void *value)
 {
-	optional res = {.value = value, .has_some = true};
-	return res;
+        optional res = {.value = value, .has_some = true};
+        return res;
 }
 
 /** ## none
@@ -136,15 +145,16 @@ optional some(void *value)
  *
  *  ### Usage
  *
- *      optional fun(void){
- *          return (optional) none(); // optional<value: NULL, has_some: false>
- *      }
- *
+ *  ```c
+ *  optional fun(void){
+ *  	return (optional) none(); // optional<value: NULL, has_some: false>
+ *  }
+ *  ```
  */
 optional none(void)
 {
-	optional res = {.value = NULL, .has_some = false};
-	return res;
+        optional res = {.value = NULL, .has_some = false};
+        return res;
 }
 
 /** ## cast_optional
@@ -157,22 +167,29 @@ optional none(void)
  *
  *  You can use it to convert generic `optional`s to your own pseudo-generic one.
  *
+ *  ### Arguments
+ *  1. `optional`: the generic optional to be converted
+ *
  *  ### Usage
  *
- *      def_optional(optional_string, char*);
+ * ```c
+ *  def_optional(optional_string, char*);
  *
- *  	optional_string fun(void){
- *          // note: `some` returns optional<value: "Hello, world!", has_some: true>
- *          optional_string res = cast_optional(some("Hello, world!"));
- *          return res;
- *      }
+ *  optional_string fun(void){
+ *
+ *  	// note: `some` returns optional<value: "Hello, world!", has_some: true>
+ *
+ *    	optional_string res = cast_optional(some("Hello, world!"));
+ *  	return res;
+ *  }
+ *  ```
  *
  */
-#define cast_optional(optional)     \
-	{                                \
-		.value = optional.value,      \
-		.has_some = optional.has_some \
-	}
+#define cast_optional(optional)               \
+        {                                     \
+                .value = optional.value,      \
+                .has_some = optional.has_some \
+        }
 
 #endif /* LIB_OPTIONAL_H */
 

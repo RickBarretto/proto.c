@@ -1,7 +1,7 @@
 ---
 author: RickBarretto
 copyright: public domain
-version: 1.0.1
+version: 1.0.2
 ---
 
 # Optional
@@ -69,7 +69,7 @@ if (index_of.has_some) ...
 ## API
 
 
-#### optional
+### optional
 
 `optional` can be used as a type or struct, and stores two values,
 a `value` that is the wrapped value itself,
@@ -80,18 +80,18 @@ In this case, `value` is stored as a void pointer,
 used for generic programming in C. So you can store any type here,
 but it's not type-safe.
 
-##### Fields
+#### Fields
 - `*void value`: wraps the value itself
 - `bool has_some`: defines if the optional has some or none value
 
-##### See
+#### See
 - [`some`](#some)
 - [`none`](#none)
 - [`def_optional`](#def_optional)
 - [`cast_optional`](#cast_optional)
 
 
-#### def_optional
+### def_optional
 
 `def_optional` is a macro used for create new pseudo-generic,
 but type-safe optionals.
@@ -109,39 +109,39 @@ typedef struct `name` {
 You can use [`cast_optional`](#cast_optional) to translate generic-optionals
 to your own pseudo-generic optionals.
 
-##### Arguments
+#### Arguments
 1. `name`: the name of your new type/struct
 2. `type`: the `value`'s type
 
-##### See
+#### See
 - [`optional`](#optional)
 - [`cast_optional`](#cast_optional)
 
 
-#### some
+### some
 
 Is a function that returns an generic `optional` with some value.
 
-##### Arguments
+#### Arguments
 1. `void* value`: can be any value
 
-##### See
+#### See
 - [`optional`](#optional)
 - [`none`](#none)
 
 
-#### none
+### none
 
 Is a function that returns an generic `optional` with no value.
 
-##### Arguments
+#### Arguments
 1. `void`: it takes no argument
 
-##### See
+#### See
 - [`optional`](#optional)
 - [`some`](#some)
 
-#### cast_optional
+### cast_optional
 
 It's a macro that converts a generic `optional` to your own
 pseudo-generic options types.
@@ -149,10 +149,10 @@ pseudo-generic options types.
 > **Note**:
 > It can only be used as an r-value, and you always need to asign it to a variable.
 
-##### Arguments
+#### Arguments
 1. `optional`: the generic optional to be converted
 
-##### Usage
+#### Usage
 ```c
 optional some_function(void);
 def_optional(str_opt, char*);
@@ -163,7 +163,7 @@ casted = cast_optional(none());
 casted = cast_optional(some_function());
 ```
 
-##### See
+#### See
 - [`optional`](#optional)
 - [`def_optional`](#def_optional)
 
