@@ -18,11 +18,11 @@
  *  The answer is basically: you have a greater control about error-handling.
  *
  *  ## Objects
- *  - [[#result|`result`]]
- *  - [[#def_result|`def_result`]]
- *  - [[#ok|`ok`]]
- *  - [[#err|`err`]]
- *  - [[#cast_result|`cast_result`]]
+ *  - `result`
+ *  - `def_result`
+ *  - `ok`
+ *  - `err`
+ *  - `cast_result`
  *
  *  ## Design Choices
  *
@@ -35,6 +35,9 @@
  *  You can choose one of them of both in your project,
  *  pseudo-generic generators can be a bit annoying to use sometimes,
  *  but it's definitelly type-safer than generics with `void*`.
+ *
+ *  ## Exports
+ *  - `stdint.h`
  *
  */
 
@@ -52,9 +55,9 @@
  *  @`unwrap` stores the wrapped value itself,
  *  while @`error` is the returned error, 0 means success.
  *
- *  ### Attributes
- *  - `unwrap`: `void*`
- *  - `error`: `uint_t`
+ *  ### Fields
+ *  - `void* unwrap`: The unwraped result
+ *  - `uint8_t error`: The error code
  *
  *  ### Usage
  *
@@ -64,24 +67,26 @@
  */
 typedef struct result
 {
-	void *unwrap;
-	uint8_t error;
+        void *unwrap;
+        uint8_t error;
 } result;
 
 /** ## def_result
  *
  *  > `def_result(name, type)`
  *  > structure: `@name<@type unwrap, uint8_t error>`
- *  > type: struct, type
+ *  > type: macro, struct, type
  *
- *  Creates a pseudo-generic result struct/type,
+ *  A macro that reates a pseudo-generic result struct/type,
  *  but with a fixed type instead of a `void*`, as it is for [[#result]].
  *
+ *  ### Arguments
+ *  1. `name`: the name of your new type/struct
+ *  2. `type`: the `unwrap`'s type
+ *
  *  ### Usage
- *
- *  	#include <stdint.h>
- *
- *  	def_result(result_uint8, uint8_t);
+ *  ```c
+ *  def_result(result_uint8, uint8_t);
  *
  *  	// expands to:
  *  	// typedef struct result_uint8
@@ -90,17 +95,18 @@ typedef struct result
  *  	//      uint8_t error;
  *  	// } result_uint8;
  *
- *  	result_uint8 fun(void){
- *      	return ok((void*)10);
- *  	}
+ *   result_uint8 fun(void){
+ *      return ok((void*)10);
+ *   }
+ *   ```
  *
  */
 #define def_result(name, type) \
-	typedef struct name    \
-	{                      \
-		type unwrap;   \
-		uint8_t error; \
-	} name
+        typedef struct name    \
+        {                      \
+                type unwrap;   \
+                uint8_t error; \
+        } name
 
 /** ## ok
  *
@@ -109,17 +115,22 @@ typedef struct result
  *
  *  Returns an `result` with some value
  *
- *  ### Usage
+ *  ### Arguments
+ *  1. `void* value`: any value to be returned
  *
- * 		result fun(void){
- *			return ok((void*)10); // `ok` returns: result<unwrap: 10, error: 0>
- *  	}
+ *  ### Usage
+ *  ```c
+ *  result fun(void){
+ *      // `ok` returns: result<unwrap: 10, error: 0>
+ *      return ok((void*)10);
+ *  }
+ *  ```
  *
  */
 result ok(void *value)
 {
-	result res = {.unwrap = value, .error = 0};
-	return res;
+        result res = {.unwrap = value, .error = 0};
+        return res;
 }
 
 /** ## err
@@ -129,18 +140,22 @@ result ok(void *value)
  *
  *  Returns a `result` with an error code
  *
- *  ### Usage
+ *  ### Arguments
+ *  1. `uint8_t error`: a error code
  *
- *  	result fun(void){
- *      	#define ERROR 1
- *      	return err(ERROR); // `err` returns: result<unwrap: NULL, error: 1>
- *  	}
+ *  ### Usage
+ *  ```
+ *  result fun(void){
+ *      // `err` returns: result<unwrap: NULL, error: 1>
+ *      err(1);
+ *  }
+ *  ```
  *
  */
 result err(uint8_t error_code)
 {
-	result res = {.unwrap = NULL, .error = error_code};
-	return res;
+        result res = {.unwrap = NULL, .error = error_code};
+        return res;
 }
 
 /** ## cast_result
@@ -153,22 +168,27 @@ result err(uint8_t error_code)
  *
  *  You can use it to convert generic `result`s to your own pseudo-generic one.
  *
+ *  ### Arguments
+ *  1. `result`: the generic result to be converted
+ *
  *  ### Usage
  *
- *  	def_result(result_string, char*);
+ *  ```c
+ *  def_result(result_string, char*);
  *
- *  	result_string fun(void){
- *      	// note: `ok` returns result<unwrap: "Hello, world!", error: 0>
- *      	result_string res = cast_result(ok((void*)"Hello, world!"));
- *      	return res;
- *  	}
+ *  result_string fun(void){
+ *      // note: `ok` returns result<unwrap: "Hello, world!", error: 0>
+ *      result_string res = cast_result(ok((void*)"Hello, world!"));
+ *      return res;
+ *  }
+ *  ```
  *
  */
 #define cast_result(result)              \
-	{                                \
-		.unwrap = result.unwrap, \
-		.error = result.error    \
-	}
+        {                                \
+                .unwrap = result.unwrap, \
+                .error = result.error    \
+        }
 
 #endif /* LIB_RESULT_H */
 
