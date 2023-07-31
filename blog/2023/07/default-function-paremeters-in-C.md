@@ -156,6 +156,10 @@ If we miss some argument, the default one will be used.
 Due to the fact that `__VA_ARGS__` is already being used as a member of a struct,
 you won't be able to have something like `*args, **kwargs` from Python.
 
+## Final Result
+
+[My final gist](https://gist.github.com/RickBarretto/ed0065c1a2144deb4b3250ce125956b0)
+
 ----
 
 <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><span property="dct:title">Kwargs, How to create default arguments in C</span> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://github.com/RickBarretto">RickBarretto</a> is marked with <a href="http://creativecommons.org/publicdomain/zero/1.0?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC0 1.0 Universal<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/zero.svg?ref=chooser-v1"></a></p>
